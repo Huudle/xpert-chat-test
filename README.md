@@ -17,15 +17,15 @@ This project provides a standalone HTML page that simulates a client website emb
 
 ### Local Development
 
-1. Make sure the LabXpert application is running on `https://app.labxpert.ai`
+1. Make sure the LabXpert application is running on `https://test.app.labxpert.ai`
 2. Open `index.html` in your browser
 3. The chat widget should appear in the bottom-right corner
 4. Click the chat button to open the widget
 
 ### What Gets Loaded
 
-- **Embed Script**: `https://app.labxpert.ai/api/embed/embed.js`
-- **Chat Widget**: `https://app.labxpert.ai/embed/chat` (loaded in an iframe)
+- **Embed Script**: `https://test.app.labxpert.ai/api/embed/embed.js`
+- **Chat Widget**: `https://test.app.labxpert.ai/embed/chat` (loaded in an iframe)
 
 ## Testing
 
