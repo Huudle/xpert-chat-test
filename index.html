@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LabXpert Embed Test</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #333;
+        }
+
+        .info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .info code {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .status.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>LabXpert Embed Widget Test</h1>
+
+        <div class="info">
+            <strong>Test Page Info:</strong><br>
+            This page simulates a client website embedding the LabXpert chat widget.<br>
+            The embed script should load from: <code>http://localhost:3000/api/embed/embed.js</code><br>
+            The iframe should load: <code>http://localhost:3000/embed/chat</code>
+        </div>
+
+        <div id="status" class="status" style="display: none;"></div>
+
+        <p>You should see a "Chat" button in the bottom-right corner. Click it to open the chat widget.</p>
+        <p>If you see any errors, check the browser console (F12).</p>
+    </div>
+
+    <!-- Embed Script -->
+    <script src="http://localhost:3000/api/embed/embed.js"></script>
+
+    <script>
+        // Monitor for script loading
+        window.addEventListener('load', function () {
+            const statusEl = document.getElementById('status');
+            const embedRoot = document.getElementById('labxpert-embed-root');
+
+            if (embedRoot) {
+                statusEl.textContent = '✅ Embed script loaded successfully! Widget should appear in bottom-right.';
+                statusEl.className = 'status success';
+                statusEl.style.display = 'block';
+            } else {
+                setTimeout(function () {
+                    if (!document.getElementById('labxpert-embed-root')) {
+                        statusEl.textContent = '⚠️ Embed root not found. Check console for errors.';
+                        statusEl.className = 'status error';
+                        statusEl.style.display = 'block';
+                    }
+                }, 1000);
+            }
+        });
+
+        // Listen for postMessage from embed
+        window.addEventListener('message', function (event) {
+            if (event.data?.type === 'labxpert-embed-close') {
+                console.log('[Test Page] Received close message from embed:', event);
+            }
+        });
+    </script>
+</body>
+
+</html>
