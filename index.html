@@ -1,49 +1,50 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LabXpert Embed Test</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Embed Test</title>
     <style>
         body {
             font-family: system-ui, -apple-system, sans-serif;
             padding: 40px;
-            max-width: 1200px;
+            max-width: 600px;
             margin: 0 auto;
             background: #f5f5f5;
         }
 
         .container {
             background: white;
-            padding: 30px;
+            padding: 24px;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            margin-top: 0;
+            margin: 0 0 16px;
+            font-size: 1.25rem;
             color: #333;
         }
 
         .info {
             background: #e3f2fd;
-            padding: 15px;
+            padding: 12px;
             border-radius: 4px;
-            margin-bottom: 20px;
+            font-size: 0.875rem;
         }
 
         .info code {
             background: rgba(0, 0, 0, 0.05);
             padding: 2px 6px;
             border-radius: 3px;
-            font-size: 0.9em;
         }
 
         .status {
-            margin-top: 20px;
+            margin-top: 16px;
             padding: 10px;
             border-radius: 4px;
+            font-size: 0.875rem;
         }
 
         .status.success {
@@ -60,49 +61,36 @@
 
 <body>
     <div class="container">
-        <h1>LabXpert Embed Widget Test</h1>
-
+        <h1>Chat embed test</h1>
         <div class="info">
-            <strong>Test Page Info:</strong><br>
-            This page simulates a client website embedding the LabXpert chat widget.<br>
-            The embed script should load from: <code>https://test.app.labxpert.ai/api/embed/embed.js</code><br>
-            The iframe should load: <code>https://test.app.labxpert.ai/embed/chat</code>
+            Script: <code>https://test.app.labxpert.ai/api/embed/embed.js</code><br />
+            Iframe: <code>https://test.app.labxpert.ai/embed/chat</code>
         </div>
-
-        <div id="status" class="status" style="display: none;"></div>
-
-        <p>You should see a "Chat" button in the bottom-right corner. Click it to open the chat widget.</p>
-        <p>If you see any errors, check the browser console (F12).</p>
+        <div id="status" class="status" style="display: none"></div>
     </div>
 
-    <!-- Embed Script -->
     <script src="https://test.app.labxpert.ai/api/embed/embed.js"></script>
-
     <script>
-        // Monitor for script loading
         window.addEventListener('load', function () {
             const statusEl = document.getElementById('status');
             const embedRoot = document.getElementById('labxpert-embed-root');
-
             if (embedRoot) {
-                statusEl.textContent = '✅ Embed script loaded successfully! Widget should appear in bottom-right.';
+                statusEl.textContent = '✅ Embed loaded. Chat button in bottom-right.';
                 statusEl.className = 'status success';
                 statusEl.style.display = 'block';
             } else {
                 setTimeout(function () {
                     if (!document.getElementById('labxpert-embed-root')) {
-                        statusEl.textContent = '⚠️ Embed root not found. Check console for errors.';
+                        statusEl.textContent = '⚠️ Embed root not found. Check console.';
                         statusEl.className = 'status error';
                         statusEl.style.display = 'block';
                     }
                 }, 1000);
             }
         });
-
-        // Listen for postMessage from embed
         window.addEventListener('message', function (event) {
             if (event.data?.type === 'labxpert-embed-close') {
-                console.log('[Test Page] Received close message from embed:', event);
+                console.log('[Embed Test] Close message:', event);
             }
         });
     </script>
