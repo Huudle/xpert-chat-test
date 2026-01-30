@@ -1,99 +1,105 @@
 <!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Embed Test</title>
     <style>
-        body {
-            font-family: system-ui, -apple-system, sans-serif;
-            padding: 40px;
-            max-width: 600px;
-            margin: 0 auto;
-            background: #f5f5f5;
-        }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        padding: 40px;
+        max-width: 600px;
+        margin: 0 auto;
+        background: #f5f5f5;
+      }
 
-        .container {
-            background: white;
-            padding: 24px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
+      .container {
+        background: white;
+        padding: 24px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
 
-        h1 {
-            margin: 0 0 16px;
-            font-size: 1.25rem;
-            color: #333;
-        }
+      h1 {
+        margin: 0 0 16px;
+        font-size: 1.25rem;
+        color: #333;
+      }
 
-        .info {
-            background: #e3f2fd;
-            padding: 12px;
-            border-radius: 4px;
-            font-size: 0.875rem;
-        }
+      .info {
+        background: #e3f2fd;
+        padding: 12px;
+        border-radius: 4px;
+        font-size: 0.875rem;
+      }
 
-        .info code {
-            background: rgba(0, 0, 0, 0.05);
-            padding: 2px 6px;
-            border-radius: 3px;
-        }
+      .info code {
+        background: rgba(0, 0, 0, 0.05);
+        padding: 2px 6px;
+        border-radius: 3px;
+        overflow-wrap: break-word;
+        word-break: break-all;
+        display: inline-block;
+        max-width: 100%;
+      }
 
-        .status {
-            margin-top: 16px;
-            padding: 10px;
-            border-radius: 4px;
-            font-size: 0.875rem;
-        }
+      .status {
+        margin-top: 16px;
+        padding: 10px;
+        border-radius: 4px;
+        font-size: 0.875rem;
+      }
 
-        .status.success {
-            background: #e8f5e9;
-            color: #2e7d32;
-        }
+      .status.success {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
 
-        .status.error {
-            background: #ffebee;
-            color: #c62828;
-        }
+      .status.error {
+        background: #ffebee;
+        color: #c62828;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <h1>Chat embed test</h1>
-        <div class="info">
-            Script: <code>https://test.app.labxpert.ai/api/embed/embed.js</code><br />
-            Iframe: <code>https://test.app.labxpert.ai/embed/chat</code>
-        </div>
-        <div id="status" class="status" style="display: none"></div>
+      <h1>Chat embed test</h1>
+      <div class="info">
+        Script: <code>https://test.app.labxpert.ai/api/embed/embed.js</code><br />
+        Iframe: <code>https://test.app.labxpert.ai/embed/chat</code>
+      </div>
+      <div id="status" class="status" style="display: none"></div>
     </div>
 
     <script src="https://test.app.labxpert.ai/api/embed/embed.js"></script>
     <script>
-        window.addEventListener('load', function () {
-            const statusEl = document.getElementById('status');
-            const embedRoot = document.getElementById('labxpert-embed-root');
-            if (embedRoot) {
-                statusEl.textContent = '✅ Embed loaded. Chat button in bottom-right.';
-                statusEl.className = 'status success';
-                statusEl.style.display = 'block';
-            } else {
-                setTimeout(function () {
-                    if (!document.getElementById('labxpert-embed-root')) {
-                        statusEl.textContent = '⚠️ Embed root not found. Check console.';
-                        statusEl.className = 'status error';
-                        statusEl.style.display = 'block';
-                    }
-                }, 1000);
+      window.addEventListener('load', function () {
+        const statusEl = document.getElementById('status');
+        const embedRoot = document.getElementById('labxpert-embed-root');
+        if (embedRoot) {
+          statusEl.textContent =
+            '✅ Embed loaded. Chat button in bottom-right.';
+          statusEl.className = 'status success';
+          statusEl.style.display = 'block';
+        } else {
+          setTimeout(function () {
+            if (!document.getElementById('labxpert-embed-root')) {
+              statusEl.textContent = '⚠️ Embed root not found. Check console.';
+              statusEl.className = 'status error';
+              statusEl.style.display = 'block';
             }
-        });
-        window.addEventListener('message', function (event) {
-            if (event.data?.type === 'labxpert-embed-close') {
-                console.log('[Embed Test] Close message:', event);
-            }
-        });
+          }, 1000);
+        }
+      });
+      window.addEventListener('message', function (event) {
+        if (event.data?.type === 'labxpert-embed-close') {
+          console.log('[Embed Test] Close message:', event);
+        }
+      });
     </script>
-</body>
-
+  </body>
 </html>
